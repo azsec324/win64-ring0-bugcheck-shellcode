@@ -21,3 +21,9 @@ Last used MASM version 14.51.36256.0 for Visual Studio 2026
 Tested on Windows 10 22H2 (OS Build 19045.6456, Kernel Base 10.0.19041.1) via directly replacing binary of a dummy function inside ntoskrnl.exe. Testing was done with WinDbg, the kernel debug log is located in the file `kernel_debug.log`.
 
 This shellcode could still run at high IRQL (higher than Passive/APC). It is position independent and works when KASLR is enabled. It uses CPU MSR to get the address and doesn't rely on hardcoded offsets, so it should be theoretically able to run on any Windows 64-bit builds regardless of kernel versions, though this might need further testing as proof.
+
+By default, the shellcode calls KeBugCheck with code 0xDEADBEEF. You may change the bug check code, by editing the assembly source at line 85.
+
+`mov ecx, 0deadbeefh`
+
+Change the `'0deadbeefh'` to any value you like.
